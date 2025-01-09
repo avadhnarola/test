@@ -1,0 +1,168 @@
+<?php include_once("header.php"); ?>
+
+<section id="home-section" class="hero">
+    <img src="images/blob-shape-3.svg" class="svg-blob" alt="Colorlib Free Template">
+    <div class="home-slider owl-carousel">
+        <div class="slider-item">
+            <div class="overlay"></div>
+            <div class="container-fluid p-0">
+                <div class="row d-md-flex no-gutters slider-text align-items-center justify-content-end"
+                    data-scrollax-parent="true">
+                    <div class="one-third order-md-last">
+                        <div class="img" style="background-image:url(images/bg_1.jpg);">
+                            <div class="overlay"></div>
+                        </div>
+                        <div class="bg-primary">
+                            <div class="vr"><span class="pl-3 py-4"
+                                    style="background-image: url(images/bg_1-1.jpg);">Greece</span></div>
+                        </div>
+                    </div>
+                    <div class="one-forth d-flex align-items-center ftco-animate"
+                        data-scrollax=" properties: { translateY: '70%' }">
+                        <div class="text">
+                            <span class="subheading pl-5">Discover Greece</span>
+                            <h1 class="mb-4 mt-3">Explore Your Travel Destinations like never before</h1>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary
+                                regelialia. It is a paradisematic country.</p>
+
+                            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Discover <span
+                                        class="ion-ios-arrow-forward"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slider-item">
+            <div class="overlay"></div>
+            <div class="container-fluid p-0">
+                <div class="row d-flex no-gutters slider-text align-items-center justify-content-end"
+                    data-scrollax-parent="true">
+                    <div class="one-third order-md-last">
+                        <div class="img" style="background-image:url(images/bg_2.jpg);">
+                            <div class="overlay"></div>
+                        </div>
+                        <div class="vr"><span class="pl-3 py-4"
+                                style="background-image: url(images/bg_2-2.jpg);">Africa</span></div>
+                    </div>
+                    <div class="one-forth d-flex align-items-center ftco-animate"
+                        data-scrollax=" properties: { translateY: '70%' }">
+                        <div class="text">
+                            <span class="subheading pl-5">Discover Africa</span>
+                            <h1 class="mb-4 mt-3">Never Stop Exploring</span></h1>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary
+                                regelialia. It is a paradisematic country.</p>
+
+                            <p><a href="#" class="btn btn-primary px-5 py-3 mt-3">Discover <span
+                                        class="ion-ios-arrow-forward"></span></a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Contact</span>
+                <h2 class="mb-4">Contact Me</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
+            </div>
+        </div>
+
+        <div class="row block-9">
+            <div class="col-md-7 order-md-last d-flex">
+                <form action="#" class="bg-light p-4 p-md-5 contact-form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="" id="" cols="30" rows="7" class="form-control"
+                            placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-5 d-flex">
+                <div class="row d-flex contact-info mb-5">
+                    <div class="col-md-12 ftco-animate">
+                        <div class="box p-2 px-3 bg-light d-flex">
+                            <div class="icon mr-3">
+                                <span class="icon-map-signs"></span>
+                            </div>
+                            <div>
+                                <h3 class="mb-3">Address</h3>
+                                <p>198 West 21th Street, Suite 721 New York NY 10016</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ftco-animate">
+                        <div class="box p-2 px-3 bg-light d-flex">
+                            <div class="icon mr-3">
+                                <span class="icon-phone2"></span>
+                            </div>
+                            <div>
+                                <h3 class="mb-3">Contact Number</h3>
+                                <p><a href="tel://1234567920">+ 1235 2355 98</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ftco-animate">
+                        <div class="box p-2 px-3 bg-light d-flex">
+                            <div class="icon mr-3">
+                                <span class="icon-paper-plane"></span>
+                            </div>
+                            <div>
+                                <h3 class="mb-3">Email Address</h3>
+                                <p><a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ftco-animate">
+                        <div class="box p-2 px-3 bg-light d-flex">
+
+                            <div class="icon mr-3">
+                                <span class="icon-globe"></span>
+                            </div>
+                            <div>
+                                <h3 class="mb-3">Website</h3>
+                                <p><a href="#">yoursite.com</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-no-pb">
+    <div id="map" class="bg-white"></div>
+</section>
+
+
+<?php include_once("footer.php"); ?>
+
+<script>
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=myAPI&callback=initMap" async defer></script>
