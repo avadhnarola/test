@@ -1,7 +1,10 @@
-<?php 
-    session_start();
-    session_abort();
-    session_destroy();
+<?php
+session_start();
 
-    header("location:index.php");
+
+session_unset();
+session_destroy();
+
+header("Location: index.php");
+exit(); 
 ?>

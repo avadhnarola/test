@@ -21,7 +21,7 @@
             </div>
             <div>
               Distributed by
-              <a target="_blank" href="https://themewagon.com/">ThemeWagon</a>.
+              <a target="_blank" href="#">ThemeWagon</a>.
             </div>
           </div>
         </footer>
@@ -216,9 +216,7 @@
             </div>
           </div>
         </div>
-        <div class="custom-toggle">
-          <i class="icon-settings"></i>
-        </div>
+        
       </div>
       <!-- End Custom template -->
     </div>
