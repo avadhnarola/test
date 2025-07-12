@@ -138,7 +138,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-lg-4 ftco-animate">
+            <!-- <div class="col-md-6 col-lg-4 ftco-animate">
                 <div class="project">
                     <div class="img">
                         <div class="vr"><span>Sale</span></div>
@@ -167,7 +167,7 @@
                         <span class="icon-expand"></span>
                     </a>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-lg-4 ftco-animate">
                 <div class="project">
                     <div class="img">
