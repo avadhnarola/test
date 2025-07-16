@@ -8,7 +8,7 @@ if (isset($_GET['d_id'])) {
 
     $del = "delete from service where id=" . $_GET['d_id'];
     mysqli_query($conn, $del);
-    header("localtion:viewService.php");
+    header("location:viewService.php");
 }
 $select = "select * from service";
 $res = mysqli_query($conn, $select);
@@ -39,12 +39,9 @@ $res = mysqli_query($conn, $select);
 
 <body>
     <div class="container-fluid">
+        <div class="button-container">
+            <a href="addService.php" class=" btn btn-add">+ <b>Service</b></a>
 
-
-        <div class="container d-flex justify-content-end" style="min-height:40px; margin-top:100px;">
-            <div class="buttons" style="margin-right:90px;">
-                <a href="addService.php" class="btn btn-primary"> + <b>Services</b></a>
-            </div>
         </div>
     </div>
 
@@ -52,40 +49,48 @@ $res = mysqli_query($conn, $select);
     <div class="container d-flex justify-content-center">
         <div class="admin-panel">
             <h2>View Services</h2>
-            <table class="table table-light table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Icon</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-responsive">
 
-                    <?php
-                    while ($row = mysqli_fetch_assoc($res)) { ?>
 
-                        <tr class="trow">
-
-                            <td><?php echo $row['id']; ?></td>
-                            <td class="icons ">
-                                <div class="icon justify-content-center align-items-center d-flex"><span
-                                        class="<?php echo $row['icon']; ?>"></span></div>
-                            </td>
-                            <td><?php echo $row['title']; ?></td>
-                            <td><?php echo $row['content']; ?></td>
-                            <td><a href="addService.php?u_id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a></td>
-                            <td><a href="viewService.php?d_id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a>
-                            </td>
-
+                <table class="table table-light table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Icon</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
                         </tr>
+                    </thead>
+                    <tbody>
 
-                    <?php } ?>
-                </tbody>
-            </table>
+                        <?php
+                        while ($row = mysqli_fetch_assoc($res)) { ?>
+
+                            <tr class="trow">
+
+                                <td><?php echo $row['id']; ?></td>
+                                <td class="icons ">
+                                    <div class="icon justify-content-center align-items-center d-flex"><span
+                                            class="<?php echo $row['icon']; ?>"></span></div>
+                                </td>
+                                <td><?php echo $row['title']; ?></td>
+                                <td><?php echo $row['content']; ?></td>
+                                <td>
+                                    <a href="addService.php?u_id=<?php echo $row['id']; ?>" class="btn edit-btn">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="viewService.php?d_id=<?php echo $row['id']; ?>" class="btn delete-btn"
+                                        onclick="return confirm('Are you sure to delete this Service?');">Delete</a>
+                                </td>
+
+                            </tr>
+
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 

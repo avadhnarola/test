@@ -89,7 +89,7 @@ session_start();
               </a>
             </li>
             <li class="nav-item">
-              <a  href="addDestination.php">
+              <a  href="viewDestination.php">
                 <i class="fas fa-map-marker-alt"></i>
                 <p>Destination</p>
                 

@@ -5,31 +5,32 @@ include("header.php");
 
 if (isset($_GET['u_id'])) {
     $id = $_GET['u_id'];
-
-    $u_data = mysqli_query($conn, "select * from service where id=$id");
-    $u_data = mysqli_fetch_assoc($u_data);
+    $res = mysqli_query($conn, "SELECT * FROM destination WHERE id=$id");
+    $u_data = mysqli_fetch_assoc($res);
 }
 
 if (isset($_POST['submit'])) {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $icon = $_POST['icon'];
+    $price = $_POST['price'];
+    $days = $_POST['days'];
+    $location = $_POST['location'];
+    $star = $_POST['star'];
+    $rate = $_POST['rate'];
+    $img = $_FILES['image']['name'];
+    move_uploaded_file($_FILES['image']['tmp_name'],"images/$img");
 
-    if (isset($_GET['u_id'])) {
-
-        mysqli_query($conn, "update service set title='$title',content='$content',icon='$icon' where id=$id");
-        header('location:viewService.php');
+    if ($id) {
+        $sql = "UPDATE destination SET price='$price',days='$days',location='$location',star='$star',image='$img',rate='$rate'WHERE id=$id";
     } else {
-
-        $data = mysqli_query($conn, "INSERT INTO service(title, content, icon) VALUES ('$title', '$content', '$icon')");
+        $sql = "INSERT INTO destination (price, days, location, star, image, rate) VALUES ('$price', '$days', '$location', '$star', '$img', '$rate')";
     }
 
+    $data = mysqli_query($conn, $sql);
 
     if ($data) {
-        header("Location: viewService.php");
+        header("Location: viewDestination.php");
         exit();
     } else {
-        echo "Insert failed: " . mysqli_error($conn);
+        echo "Operation failed: " . mysqli_error($conn);
     }
 }
 ?>
@@ -39,78 +40,71 @@ if (isset($_POST['submit'])) {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Destination Form</title>
+    <title>Add/Edit Destination</title>
     <link rel="stylesheet" href="form-style.css">
 </head>
-
-
 
 <body>
 
     <div class="container d-flex justify-content-center">
         <div class="admin-panel">
             <h2>Add Destination</h2>
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="price">Price </label>
-                    <input type="number" id="price" name="price" required value="<?php echo @$u_data['price']; ?>" />
+                    <label>Location</label>
+                    <input type="text" name="location" value="<?php echo @$u_data['location']; ?>" />
                 </div>
-
+                
                 <div class="form-group">
-                    <label for="Days">Days</label>
-                    <select id="days" name="days">
-                        <option value="">Select a Days</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
+                    <label>Days</label>
+                    <select name="days">
+                        <option value="">Select Days</option>
+                        <?php for ($i = 5; $i <= 15; $i++): ?>
+                            <option value="<?= $i ?>" <?php if (@$u_data['days'] == $i)
+                                  echo 'selected'; ?>><?= $i ?></option>
+                        <?php endfor; ?>
                     </select>
                 </div>
+                
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="number" name="price" value="<?php echo @$u_data['price']; ?>" required />
+                </div>
+                
 
                 <div class="form-group">
-                    <label for="location">Location</label>
-                   <input type="text" id="location" name="location"><?php echo @$u_data['location']; ?></textarea>
-
-                </div>
-                  <div class="form-group">
-                    <label for="star">Star Rating</label>
-                    <select id="star" name="star">
+                    <label>Star Rating</label>
+                    <select name="star">
                         <option value="">Rating by Star</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                            <option value="<?= $i ?>" <?php if (@$u_data['star'] == $i)
+                                  echo 'selected'; ?>><?= $i ?></option>
+                        <?php endfor; ?>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="image">image</label>
-                    <input type="file" id="image" class="form-control" name="image" required value="<?php echo @$u_data['image']; ?>"/>
+                    <label>Image</label>
+                    <input type="file" name="image" class="form-control"/>
+                    <?php if (!empty($u_data['image'])): ?>
+                        <p>Current Image: <img src="images/<?php echo $u_data['image']; ?>" width="100" /></p>
+                    <?php endif; ?>
                 </div>
 
-                 <div class="form-group">
-                    <label for="rate">Rate</label>
-                   <input type="number" id="rate" name="rate"><?php echo @$u_data['rate']; ?></textarea>
-
+                <div class="form-group">
+                    <label>Rate</label>
+                    <input type="number" name="rate" value="<?php echo @$u_data['rate']; ?>" />
                 </div>
+
                 <div class="form-actions">
                     <input type="submit" class="btn btn-primary" name="submit" value="Submit" />
                 </div>
             </form>
         </div>
     </div>
+
 </body>
 
-
 </html>
-<?php
-include("footer.php");
-?>
+
+<?php include("footer.php"); ?>
