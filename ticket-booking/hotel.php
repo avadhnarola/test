@@ -1,3 +1,9 @@
+<?php
+include_once "db.php";
+$hotels = mysqli_query($conn, "select * from hotels ORDER BY id DESC LIMIT 6");
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +51,6 @@
                     </li>
                     <li class="nav-item"><a href="hotel.php" class="nav-link active"><span>Hotel</span></a></li>
                     <li class="nav-item"><a href="restaurant.php" class="nav-link"><span>Restaurant</span></a></li>
-                    <li class="nav-item"><a href="blog.php" class="nav-link"><span>Blog</span></a></li>
                     <li class="nav-item"><a href="contact.php" class="nav-link"><span>Contact</span></a></li>
                 </ul>
             </div>
@@ -138,95 +143,42 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-lg-4 ftco-animate">
-                <div class="project">
-                    <div class="img">
-                        <div class="vr"><span>Sale</span></div>
-                        <a href="hotel.html"><img src="images/hotel-1.jpg" class="img-fluid"
-                                alt="Colorlib Template"></a>
-                    </div>
-                    <div class="text">
-                        <h4 class="price"><span class="old-price mr-2">$500</span>$400</h4>
-                        <span>3 nights</span>
-                        <h3><a href="hotel.html">Luxury Hotel in Greece</a></h3>
-                        <div class="star d-flex clearfix">
-                            <div class="mr-auto float-left">
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
+                <?php while ($row = mysqli_fetch_assoc($hotels)) { ?>
+                    <div class="col-md-6 col-lg-4 ftco-animate">
+                        <div class="project">
+                            <div class="img">
+                                <!-- <div class="vr"><span>Sale</span></div> -->
+                                <a href="#"><img src="admin/images/<?php echo $row['image']; ?>" class="img-fluid"
+                                        alt="<?php echo $row['location']; ?> Image" style="height:350px;  width: 450px;"></a>
                             </div>
-                            <div class="float-right">
-                                <span class="rate"><a href="#">(120)</a></span>
+                            <div class="text">
+                                <h4 class="price">$<?php echo $row['price']; ?></h4>
+                                <span><?php echo $row['nights']; ?> Nights</span>
+                                <h3><a href="#"><?php echo $row['location']; ?></a></h3>
+                                <div class="star d-flex clearfix">
+                                    <div class="mr-auto float-left">
+                                        <?php
+                                        for ($i = 0; $i < $row['star']; $i++) {
+                                            echo '★';
+                                        }
+                                        for ($j = $row['star']; $j < 5; $j++) {
+                                            echo '☆';
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="rate"><a href="#">( <?php echo $row['rate']; ?> )</a></span>
+                                    </div>
+                                </div>
                             </div>
+                            <a href="admin/images/<?php echo $row['image']; ?>"
+                                class="icon image-popup d-flex justify-content-center align-items-center">
+                                <span class="icon-expand"></span>
+                            </a>
                         </div>
                     </div>
-                    <a href="images/hotel-1.jpg"
-                        class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="icon-expand"></span>
-                    </a>
-                </div>
+                <?php } ?>
             </div>
-            <div class="col-md-6 col-lg-4 ftco-animate">
-                <div class="project">
-                    <div class="img">
-                        <a href="hotel.html"><img src="images/hotel-2.jpg" class="img-fluid"
-                                alt="Colorlib Template"></a>
-                    </div>
-                    <div class="text">
-                        <h4 class="price">$400</h4>
-                        <span>3 nights</span>
-                        <h3><a href="hotel.html">Luxury Hotel in Greece</a></h3>
-                        <div class="star d-flex clearfix">
-                            <div class="mr-auto float-left">
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                            </div>
-                            <div class="float-right">
-                                <span class="rate"><a href="#">(120)</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="images/hotel-2.jpg"
-                        class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="icon-expand"></span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 ftco-animate">
-                <div class="project">
-                    <div class="img">
-                        <a href="hotel.html"><img src="images/hotel-3.jpg" class="img-fluid"
-                                alt="Colorlib Template"></a>
-                    </div>
-                    <div class="text">
-                        <h4 class="price">$400</h4>
-                        <span>3 nights</span>
-                        <h3><a href="hotel.html">Luxury Hotel in Greece</a></h3>
-                        <div class="star d-flex clearfix">
-                            <div class="mr-auto float-left">
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                                <span class="ion-ios-star"></span>
-                            </div>
-                            <div class="float-right">
-                                <span class="rate"><a href="#">(120)</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="images/hotel-3.jpg"
-                        class="icon image-popup d-flex justify-content-center align-items-center">
-                        <span class="icon-expand"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
         <div class="row justify-content-center pb-5 pt-5">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <span class="subheading">Rooms &amp; Suites</span>

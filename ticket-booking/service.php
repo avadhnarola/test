@@ -52,7 +52,6 @@ $services = mysqli_query($conn, "select * from service ORDER BY id DESC LIMIT 4"
                     </li>
                     <li class="nav-item"><a href="hotel.php" class="nav-link"><span>Hotel</span></a></li>
                     <li class="nav-item"><a href="restaurant.php" class="nav-link"><span>Restaurant</span></a></li>
-                    <li class="nav-item"><a href="blog.php" class="nav-link"><span>Blog</span></a></li>
                     <li class="nav-item"><a href="contact.php" class="nav-link"><span>Contact</span></a></li>
                 </ul>
             </div>
