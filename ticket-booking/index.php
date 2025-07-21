@@ -34,7 +34,55 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	
 </head>
+<div class="modal fade" id="bookingModal" tabindex="1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content rounded-3">
+			<div class="modal-header">
+				<h5 class="modal-title" id="bookingModalLabel">Book Your Room</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="row g-3">
+						<div class="col-md-6">
+							<label for="fullName" class="form-label">Full Name</label>
+							<input type="text" class="form-control" id="fullName" placeholder="John Doe" required>
+						</div>
+						<div class="col-md-6">
+							<label for="email" class="form-label">Email address</label>
+							<input type="email" class="form-control" id="email" placeholder="email@example.com"
+								required>
+						</div>
+						<div class="col-md-6">
+							<label for="checkIn" class="form-label">Check-in Date</label>
+							<input type="date" class="form-control" id="checkIn" required>
+						</div>
+						<div class="col-md-6">
+							<label for="checkOut" class="form-label">Check-out Date</label>
+							<input type="date" class="form-control" id="checkOut" required>
+						</div>
+						<div class="col-md-6">
+							<label for="guests" class="form-label">Number of Guests</label>
+							<input type="number" class="form-control" id="guests" min="1" max="10" required>
+						</div>
+						<div class="col-12">
+							<label for="requests" class="form-label">Special Requests</label>
+							<textarea class="form-control" id="requests" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="mt-4 text-end">
+						<button type="submit" class="btn btn-primary">Confirm Booking</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target"
@@ -418,8 +466,11 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 									and supplies it with the necessary regelialia. It is a paradisematic country, in
 									which
 									roasted parts of sentences fly into your mouth.</p>
-								<p><a href="#" class="btn btn-secondary">Details</a> <a href="#"
-										class="btn btn-primary">Book now</a></p>
+								<p><a href="#" class="btn btn-secondary">Details</a>
+									<a href="#" class="btn btn-primary" data-bs-toggle="modal"
+										data-bs-target="#bookingModal">Book now</a>
+
+								</p>
 							</div>
 						</div>
 					</div>
@@ -489,7 +540,9 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 									</span>
 								</div>
 								<div class="text px-4 pb-5">
-									<p class="mb-4" style="height:130px;">Quick booking, great deals, and smooth experience. Got instant confirmation. Very satisfied and will book future stays here again!</p>
+									<p class="mb-4" style="height:130px;">Quick booking, great deals, and smooth
+										experience. Got instant confirmation. Very satisfied and will book future stays
+										here again!</p>
 									<p class="name">Sarah Mitchell</p>
 									<span class="position">Travel Blogger</span>
 								</div>
@@ -503,7 +556,9 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 									</span>
 								</div>
 								<div class="text px-4 pb-5">
-									<p class="mb-4" style="height:130px;">Hotel options were diverse and affordable. The booking was seamless, and check-in went smoothly. Fantastic experience overall, thank you!</p>
+									<p class="mb-4" style="height:130px;">Hotel options were diverse and affordable. The
+										booking was seamless, and check-in went smoothly. Fantastic experience overall,
+										thank you!</p>
 									<p class="name">James Tan</p>
 									<span class="position">Operations Manager</span>
 								</div>
@@ -517,7 +572,9 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 									</span>
 								</div>
 								<div class="text px-4 pb-5">
-									<p class="mb-4" style="height:130px;">Efficient booking system with amazing discounts. I appreciated the clear details and fast confirmation. Everything was perfectly organized and reliable</p>
+									<p class="mb-4" style="height:130px;">Efficient booking system with amazing
+										discounts. I appreciated the clear details and fast confirmation. Everything was
+										perfectly organized and reliable</p>
 									<p class="name">Priya Sharma</p>
 									<span class="position">HR Executive</span>
 								</div>
@@ -531,7 +588,9 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 									</span>
 								</div>
 								<div class="text px-4 pb-5">
-									<p class="mb-4" style="height:130px;">User-friendly website with excellent hotel choices. Customer support was responsive and helpful. Will use this service again for sure!</p>
+									<p class="mb-4" style="height:130px;">User-friendly website with excellent hotel
+										choices. Customer support was responsive and helpful. Will use this service
+										again for sure!</p>
 									<p class="name">Daniel Ruiz</p>
 									<span class="position">Freelance Photographer</span>
 								</div>
@@ -545,7 +604,8 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 									</span>
 								</div>
 								<div class="text px-4 pb-5">
-									<p class="mb-4" style="height:130px;">The booking process was fast and easy. Found the perfect hotel at a great price. Highly recommended for travelers!</p>
+									<p class="mb-4" style="height:130px;">The booking process was fast and easy. Found
+										the perfect hotel at a great price. Highly recommended for travelers!</p>
 									<p class="name">Linia Chings</p>
 									<span class="position">Event Coordinator</span>
 								</div>
@@ -607,7 +667,6 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 			</div>
 		</div>
 	</section>
-
 	<section class="ftco-section contact-section ftco-no-pb" id="contact-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
