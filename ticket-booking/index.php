@@ -77,8 +77,8 @@ $allRooms = $conn->query("select * from Room ORDER BY id DESC LIMIT 4");
 				<div class="col-md-6">
 					<img id="roomImage" src="" alt="Room" class="img-fluid rounded">
 					<p class="mt-3">Please fill in the details below to book your room.</p>
-					<p class="mt-3" ><b>Location : </b><?php echo $latestRoom['location']; ?></p>
-					<p class="mt-2" ><b>Price : </b><?php echo $latestRoom['price']; ?> / Night</p>
+					<p class="mt-3"><b style="color: #000;">Location : </b><?php echo $latestRoom['location']; ?></p>
+					<p class="mt-2"><b style="color: #000;">Price : </b><?php echo $latestRoom['price']; ?>/Night</p>
 				</div>
 				<div class="col-md-6">
 					<form id="bookingForm">
@@ -840,32 +840,31 @@ $allRooms = $conn->query("select * from Room ORDER BY id DESC LIMIT 4");
 
 	<script>
 		document.addEventListener('DOMContentLoaded', function () {
-			// Delegate click events to dynamically added .book-now-btn
+			// Use delegation for dynamically added buttons
 			document.body.addEventListener('click', function (e) {
-				if (e.target && e.target.classList.contains('book-now-btn')) {
+				if (e.target.classList.contains('book-now-btn')) {
 					e.preventDefault();
 
-					const btn = e.target;
-					const title = btn.getAttribute('data-title');
-					const image = btn.getAttribute('data-image');
+					const title = e.target.getAttribute('data-title');
+					const image = e.target.getAttribute('data-image');
 
-					// Update modal content
 					document.getElementById('roomTitle').textContent = title;
 					document.getElementById('roomImage').src = image;
 
-					// Show modal
 					$('#bookingModal').modal('show');
 				}
 			});
 		});
-		function loadRoom(id) {
-			fetch('get-room.php?id=' + id)
-				.then(response => response.text())
-				.then(html => {
-					document.getElementById('room-content').innerHTML = html;
-				})
-				.catch(err => console.error('Error loading room:', err));
-		}
+	</script>
+
+	function loadRoom(id) {
+	fetch('get-room.php?id=' + id)
+	.then(response => response.text())
+	.then(html => {
+	document.getElementById('room-content').innerHTML = html;
+	})
+	.catch(err => console.error('Error loading room:', err));
+	}
 
 
 	</script>
