@@ -4,6 +4,8 @@ $services = mysqli_query($conn, "select * from service ORDER BY id DESC LIMIT 4"
 $destination = mysqli_query($conn, "select * from destination ORDER BY id DESC LIMIT 6");
 $hotels = mysqli_query($conn, "select * from hotels ORDER BY id DESC LIMIT 6");
 $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIMIT 3");
+$latestRoom = $conn->query("select * from Room ORDER BY id DESC LIMIT 1")->fetch_assoc();
+$allRooms = $conn->query("select * from Room ORDER BY id DESC LIMIT 4");
 
 
 ?>
@@ -19,6 +21,10 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cormorant+Garamond:300,300i,400,400i,500,500i,600,600i,700,700i"
 		rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 	<link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
 	<link rel="stylesheet" href="css/animate.css">
@@ -34,51 +40,67 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/icomoon.css">
 	<link rel="stylesheet" href="css/style.css">
-	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	
+	<style>
+		.img {
+			background-size: cover;
+			background-position: center;
+			width: 100%;
+			height: 100%;
+		}
+
+		.thumb .img {
+			height: 100px;
+		}
+
+		.room-wrap-thumb .thumb {
+			cursor: pointer;
+		}
+
+		.main-img {
+			height: 400px;
+		}
+	</style>
 </head>
-<div class="modal fade" id="bookingModal" tabindex="1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content rounded-3">
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="bookingModalLabel">Book Your Room</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title"><span id="roomTitle">Room Booking</span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span>&times;</span>
+				</button>
 			</div>
-			<div class="modal-body">
-				<form>
-					<div class="row g-3">
-						<div class="col-md-6">
-							<label for="fullName" class="form-label">Full Name</label>
-							<input type="text" class="form-control" id="fullName" placeholder="John Doe" required>
+			<div class="modal-body row">
+				<div class="col-md-6">
+					<img id="roomImage" src="" alt="Room" class="img-fluid rounded">
+					<p class="mt-3">Please fill in the details below to book your room.</p>
+					<p class="mt-3" ><b>Location : </b><?php echo $latestRoom['location']; ?></p>
+					<p class="mt-2" ><b>Price : </b><?php echo $latestRoom['price']; ?> / Night</p>
+				</div>
+				<div class="col-md-6">
+					<form id="bookingForm">
+						<div class="form-group">
+							<label for="guestName">Name</label>
+							<input type="text" class="form-control" id="guestName" required>
 						</div>
-						<div class="col-md-6">
-							<label for="email" class="form-label">Email address</label>
-							<input type="email" class="form-control" id="email" placeholder="email@example.com"
-								required>
+						<div class="form-group">
+							<label for="guestEmail">Email</label>
+							<input type="email" class="form-control" id="guestEmail" required>
 						</div>
-						<div class="col-md-6">
-							<label for="checkIn" class="form-label">Check-in Date</label>
-							<input type="date" class="form-control" id="checkIn" required>
+						<div class="form-group">
+							<label for="checkin">Check-in</label>
+							<input type="date" class="form-control" id="checkin" required>
 						</div>
-						<div class="col-md-6">
-							<label for="checkOut" class="form-label">Check-out Date</label>
-							<input type="date" class="form-control" id="checkOut" required>
+						<div class="form-group">
+							<label for="checkout">Check-out</label>
+							<input type="date" class="form-control" id="checkout" required>
 						</div>
-						<div class="col-md-6">
-							<label for="guests" class="form-label">Number of Guests</label>
-							<input type="number" class="form-control" id="guests" min="1" max="10" required>
-						</div>
-						<div class="col-12">
-							<label for="requests" class="form-label">Special Requests</label>
-							<textarea class="form-control" id="requests" rows="3"></textarea>
-						</div>
-					</div>
-					<div class="mt-4 text-end">
 						<button type="submit" class="btn btn-primary">Confirm Booking</button>
-					</div>
-				</form>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -414,7 +436,6 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 							</div>
 							<div class="text">
 								<h4 class="price">$<?php echo $row['price']; ?></h4>
-								<span><?php echo $row['nights']; ?> Nights </span>
 								<h3><a href="#"><?php echo $row['location']; ?></a></h3>
 								<div class="star d-flex clearfix">
 									<div class="mr-auto float-left">
@@ -448,70 +469,51 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12 room-wrap">
-					<div class="row">
-						<div class="col-md-7 d-flex ftco-animate">
-							<div class="img align-self-stretch" style="background-image: url(images/room-1.jpg);"></div>
-						</div>
-						<div class="col-md-5 ftco-animate">
-							<div class="text py-5">
-								<h3><a href="hotel-single.html">Classic Balcony Room</a></h3>
-								<p class="pos">from <span class="price">$99.00</span>/night</p>
-								<p>Far far away, behind the word mountains, far from the countries Vokalia and
-									Consonantia,
-									there live the blind texts. Separated they live in Bookmarksgrove right at the coast
-									of
-									the Semantics, a large language ocean. A small river named Duden flows by their
-									place
-									and supplies it with the necessary regelialia. It is a paradisematic country, in
-									which
-									roasted parts of sentences fly into your mouth.</p>
-								<p><a href="#" class="btn btn-secondary">Details</a>
-									<a href="#" class="btn btn-primary" data-bs-toggle="modal"
-										data-bs-target="#bookingModal">Book now</a>
-
-								</p>
+				<div class="container py-5">
+					<div class="row" id="room-content">
+						<!-- Room details loaded dynamically -->
+						<div class="col-md-12 room-wrap">
+							<div class="row">
+								<div class="col-md-7 d-flex">
+									<div class="img align-self-stretch main-img"
+										style="background-image: url('admin/images/<?php echo $latestRoom['image']; ?>');height:400px;">
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="text pb-5">
+										<h3><?php echo $latestRoom['title']; ?></h3>
+										<p class="pos">from <span
+												class="price">$<?php echo $latestRoom['price']; ?></span>/night</p>
+										<p><?php echo $latestRoom['description']; ?></p>
+										<p>
+											<a href="#" class="btn btn-primary book-now-btn"
+												data-title="<?php echo $latestRoom['title']; ?>"
+												data-image="admin/images/<?php echo $latestRoom['image']; ?>">
+												Book now
+											</a>
+										</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-12 room-wrap room-wrap-thumb mt-4">
-					<div class="row">
-						<div class="col-md-3 ftco-animate">
-							<a href="#" class="d-flex thumb">
-								<div class="img align-self-stretch" style="background-image: url(images/room-1.jpg);">
+
+					<!-- Thumbnail Images -->
+					<div class="col-md-12 room-wrap room-wrap-thumb mt-4">
+						<div class="row">
+							<?php while ($room = $allRooms->fetch_assoc()) { ?>
+								<div class="col-md-3">
+									<a href="#" class="d-flex thumb"
+										onclick="loadRoom(<?php echo $room['id']; ?>); return false;">
+										<div class="img align-self-stretch"
+											style="background-image: url('admin/images/<?php echo $room['image']; ?>');">
+										</div>
+										<div class="text pl-3 py-3">
+											<h3><?php echo $room['title']; ?></h3>
+										</div>
+									</a>
 								</div>
-								<div class="text pl-3 py-3">
-									<h3>Classic Balcony Room</h3>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-3 ftco-animate">
-							<a href="#" class="d-flex thumb">
-								<div class="img align-self-stretch" style="background-image: url(images/room-2.jpg);">
-								</div>
-								<div class="text pl-3 py-3">
-									<h3>Classic Balcony Room</h3>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-3 ftco-animate">
-							<a href="#" class="d-flex thumb">
-								<div class="img align-self-stretch" style="background-image: url(images/room-3.jpg);">
-								</div>
-								<div class="text pl-3 py-3">
-									<h3>Classic Balcony Room</h3>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-3 ftco-animate">
-							<a href="#" class="d-flex thumb">
-								<div class="img align-self-stretch" style="background-image: url(images/room-4.jpg);">
-								</div>
-								<div class="text pl-3 py-3">
-									<h3>Classic Balcony Room</h3>
-								</div>
-							</a>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
@@ -811,3 +813,59 @@ $restaurant = mysqli_query($conn, "select * from restaurant ORDER BY id DESC LIM
 		</div>
 	</section>
 	<?php include("footer.php"); ?>
+
+	<script>
+		$(document).ready(function () {
+			$('.book-now-btn').click(function (e) {
+				e.preventDefault();
+				var title = $(this).data('title');
+				var image = $(this).data('image');
+
+				$('#roomTitle').text(title);
+				$('#roomImage').attr('src', image);
+				$('#bookingModal').modal('show');
+			});
+		});
+	</script>
+
+	<script>
+		function loadRoom(id) {
+			fetch('get-room.php?id=' + id)
+				.then(res => res.text())
+				.then(html => {
+					document.getElementById('room-content').innerHTML = html;
+				});
+		}
+	</script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Delegate click events to dynamically added .book-now-btn
+			document.body.addEventListener('click', function (e) {
+				if (e.target && e.target.classList.contains('book-now-btn')) {
+					e.preventDefault();
+
+					const btn = e.target;
+					const title = btn.getAttribute('data-title');
+					const image = btn.getAttribute('data-image');
+
+					// Update modal content
+					document.getElementById('roomTitle').textContent = title;
+					document.getElementById('roomImage').src = image;
+
+					// Show modal
+					$('#bookingModal').modal('show');
+				}
+			});
+		});
+		function loadRoom(id) {
+			fetch('get-room.php?id=' + id)
+				.then(response => response.text())
+				.then(html => {
+					document.getElementById('room-content').innerHTML = html;
+				})
+				.catch(err => console.error('Error loading room:', err));
+		}
+
+
+	</script>

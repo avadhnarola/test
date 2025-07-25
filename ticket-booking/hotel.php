@@ -153,7 +153,6 @@ $hotels = mysqli_query($conn, "select * from hotels ORDER BY id DESC LIMIT 6");
                             </div>
                             <div class="text">
                                 <h4 class="price">$<?php echo $row['price']; ?></h4>
-                                <span><?php echo $row['nights']; ?> Nights</span>
                                 <h3><a href="#"><?php echo $row['location']; ?></a></h3>
                                 <div class="star d-flex clearfix">
                                     <div class="mr-auto float-left">
